@@ -69,13 +69,7 @@ def csv_read(a):
     l = [row for row in reader]
   return l
 
-if __name__ == "__main__":
-  test=csv_read("village_g1947.csv")
-  token=token(test)
-  #f = open('/mnt/a/PG/python/pdm/team-d/name_module/res.txt', 'a')
-  #print(token, file=f)
-  names = name_setlist(token)
-  nicknames = nickname_setlist(token)
+def name_similar_nickname(names, nicknames):
   nlp = spacy.load('ja_ginza')
   names_list = []
   for name in names:
@@ -88,4 +82,13 @@ if __name__ == "__main__":
         name_list.append((nickname, vec))
     names_list.append(name_list)
   name_dict = dict(zip(names, names_list))
-  print(name_dict)
+  return name_dict
+
+if __name__ == "__main__":
+  test=csv_read("village_g1947.csv")
+  token=token(test)
+  #f = open('/mnt/a/PG/python/pdm/team-d/name_module/res.txt', 'a')
+  #print(token, file=f)
+  names = name_setlist(token)
+  nicknames = nickname_setlist(token)
+  name_dict = name_similar_nickname(names, nicknames)

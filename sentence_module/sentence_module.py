@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-import status_module as status
+import status_module_demo as status
+import random
 
 def sentence_moddule(role_name):
 	uid_dict = {1:'ならず者ディーター',2:'シスターフレーデル'}
@@ -23,7 +24,7 @@ def sentence_moddule(role_name):
 			return ('%sさんを占います。' %(uid_dict[uid]))
 
 		else:
-			return '今日もいい天気	'
+			return ('今日もいい天気。明日は%sかな' %(otenki()))
 
 	elif role_name == '霊媒師':
 		if status.load(role_name,'自身がCOしているか') == False:
@@ -37,7 +38,7 @@ def sentence_moddule(role_name):
 			return ('%sは%sでした。' %(uid_dict[uid],ans_dict[ans]))
 
 		else:
-			return '今日もいい天気	'
+			return ('今日もいい天気。明日は%sかな' %(otenki()))
 
 	elif role_name == '狂人':
 		if status.load(role_name,'偽る役職') == '占い師':
@@ -68,7 +69,7 @@ def sentence_moddule(role_name):
 				return ('%sは%sでした。' %(uid_dict[uid],ans_dict[ans]))
 
 		else:
-			return '今日もいい天気	'
+			return ('今日もいい天気。明日は%sかな' %(otenki()))
 
 	elif role_name == '狩人':
 		if status.load(role_name,'自身がCOしているか') == False:
@@ -79,26 +80,35 @@ def sentence_moddule(role_name):
 			elif status.load(role_name,'自身へ吊り指定') == True:
 				return '私が狩人です。'
 
-		elif status.load(role_name,'自身がCOしているか') == True:
-			return
-
 		else:
-			return '今日もいい天気	'
+			return ('今日もいい天気。明日は%sかな' %(otenki()))
 
 	elif role_name == '共有者':
 		if status.load(role_name,'自身がCOしているか') == False:
+			status.save(role_name,'自身がCOしているか',True)
+			uid = status.load(role_name,'相方')
+			return ('共有者です。相方は%sさんです' %(uid_dict[uid]))
 
-			return '今日もいい天気	'
+		else:	
+			return ('今日もいい天気。明日は%sかな' %(otenki()))
 
 	elif role_name == '村人':
-		return '今日もいい天気	'
+		return ('今日もいい天気。明日は%sかな' %(otenki()))
 
 	elif role_name == '人狼':
-		return '今日もいい天気	'
+		if status.load(role_name,'自身への吊り指定') == True:
+			status.save(role_name,'偽る役職','狩人')
+			return '自分は狩人です'
+		return ('今日もいい天気。明日は%sかな' %(otenki()))
 
 
 	else:
 		return
+
+def otenki():
+	wet = ['晴','雨','曇り','雪','嵐']
+	return random.choice(wet)
+
 
 
 def main():

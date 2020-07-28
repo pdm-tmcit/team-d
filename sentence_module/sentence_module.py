@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import status_module_demo as status
+import status_module as status
 
 def sentence_moddule(role_name):
 	uid_dict = {1:'ならず者ディーター',2:'シスターフレーデル'}

@@ -1,0 +1,6 @@
+pyenv
+python3.8
+test*
+res*.txt
+__pycache__
+__init__.pyc

@@ -84,11 +84,15 @@ def name_similar_nickname(names, nicknames):
   name_dict = dict(zip(names, names_list))
   return name_dict
 
+def name_dict(token):
+  names = name_setlist(token)
+  nicknames = nickname_setlist(token)
+  name_dict = name_similar_nickname(names, nicknames)
+  return name_dict
+
 if __name__ == "__main__":
   test=csv_read("village_g1947.csv")
   token=token(test)
   #f = open('/mnt/a/PG/python/pdm/team-d/name_module/res.txt', 'a')
   #print(token, file=f)
-  names = name_setlist(token)
-  nicknames = nickname_setlist(token)
-  name_dict = name_similar_nickname(names, nicknames)
+  print(name_dict(token))

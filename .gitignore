@@ -2,3 +2,5 @@ pyenv
 python3.8
 test*
 res.txt
+data.sqlite3
+__pycache__/

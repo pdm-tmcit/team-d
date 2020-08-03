@@ -41,7 +41,7 @@ def name_setlist(token):
   nameset=set()
   for part in token:
     nameset.add(part[1])
-  return nameset
+  return list(nameset)
 
 def nickname_setlist(token):
   nameset=set()
@@ -61,7 +61,7 @@ def nickname_setlist(token):
         for ex_info in ex_token:
           if ex_info["pos_"] == "PROPN":
             nameset.add(ex_info["text"])
-  return nameset
+  return list(nameset)
 
 def csv_read(a):
   with open(a, encoding="utf-8") as f:
@@ -69,10 +69,30 @@ def csv_read(a):
     l = [row for row in reader]
   return l
 
+def name_similar_nickname(names, nicknames):
+  nlp = spacy.load('ja_ginza')
+  names_list = []
+  for name in names:
+    name_list = []
+    for nickname in nicknames:
+      doc1 = nlp(name)
+      doc2 = nlp(nickname)
+      vec = doc1.similarity(doc2)
+      if vec >= 0.65:
+        name_list.append((nickname, vec))
+    names_list.append(name_list)
+  name_dict = dict(zip(names, names_list))
+  return name_dict
+
+def name_dict(token):
+  names = name_setlist(token)
+  nicknames = nickname_setlist(token)
+  name_dict = name_similar_nickname(names, nicknames)
+  return name_dict
+
 if __name__ == "__main__":
   test=csv_read("village_g1947.csv")
   token=token(test)
   #f = open('/mnt/a/PG/python/pdm/team-d/name_module/res.txt', 'a')
   #print(token, file=f)
-  print(name_setlist(token))
-  print(nickname_setlist(token))
+  print(name_dict(token))

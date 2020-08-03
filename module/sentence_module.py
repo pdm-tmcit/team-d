@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import status_module_demo as status
+from . import status_module as status
 import random
 
 def sentence_moddule(role_name):

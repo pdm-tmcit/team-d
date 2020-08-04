@@ -26,13 +26,13 @@ def sentence_moddule(role_name):
 		else:
 			return ('今日もいい天気。明日は%sかな' %(otenki()))
 
-	elif role_name == '霊媒師':
+	elif role_name == '霊能者':
 		if status.load(role_name,'自身がCOしているか') == False:
 			status.save(role_name,'自身がCOしているか',True)
-			return '私は霊媒師です。'
+			return '私は霊能者です。'
 
-		elif status.load(role_name,'霊媒を既に言ったか',) == False:
-			status.save(role_name,'霊媒を既に言ったか',True)
+		elif status.load(role_name,'霊能を既に言ったか',) == False:
+			status.save(role_name,'霊能を既に言ったか',True)
 			uid = status.load(role_name,'スキル対象')
 			ans = status.load(role_name,'スキル結果')
 			return ('%sは%sでした。' %(uid_dict[uid],ans_dict[ans]))
@@ -57,13 +57,13 @@ def sentence_moddule(role_name):
 				uid = status.load(role_name,'占い先指定')
 				return ('%sさんを占います。' %(uid_dict[uid]))
 
-		elif status.load(role_name,'偽る役職') == '霊媒師':
+		elif status.load(role_name,'偽る役職') == '霊能者':
 			if status.load(role_name,'自身が偽COしているか') == False:
 				status.save(role_name,'自身が偽COしているか',True)
-				return '私は霊媒師です。'
+				return '私は霊能者です。'
 
-			elif status.load(role_name,'偽霊媒を既に言ったか',) == False:
-				status.save(role_name,'偽霊媒を既に言ったか',True)
+			elif status.load(role_name,'偽霊能を既に言ったか',) == False:
+				status.save(role_name,'偽霊能を既に言ったか',True)
 				uid = status.load(role_name,'偽スキル対象')
 				ans = status.load(role_name,'偽スキル結果')
 				return ('%sは%sでした。' %(uid_dict[uid],ans_dict[ans]))
@@ -73,12 +73,14 @@ def sentence_moddule(role_name):
 
 	elif role_name == '狩人':
 		if status.load(role_name,'自身がCOしているか') == False:
-			if status.load(role,'他人がCOしているか') == True:
+			if status.load(role_name,'他人がCOしているか') == True:
 				uid = status.load(role_name,'対抗先')
 				status.save(role_name,'自身がCOしているか',True)
 				return ('私が狩人です。%sさんは偽物ですね。' %(uid_dict[uid]))
 			elif status.load(role_name,'自身へ吊り指定') == True:
 				return '私が狩人です。'
+			else:
+				return ('今日もいい天気。明日は%sかな' %(otenki()))
 
 		else:
 			return ('今日もいい天気。明日は%sかな' %(otenki()))

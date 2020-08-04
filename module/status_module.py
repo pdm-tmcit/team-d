@@ -118,7 +118,7 @@ def load(rool, key):
     db = Connection("data.sqlite3")
     result = db.sqlFetchall("select * from status where rool=? and key=?",[rool,key])
     if len(result) == 0:
-        return
+        return False
     else:
         return json.loads(result[0]["value"])
 

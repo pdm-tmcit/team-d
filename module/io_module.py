@@ -3,7 +3,9 @@ import csv
 def csv_read(path):
 	with open(path,encoding="utf-8_sig") as f:
 		reader = csv.reader(f)
-		return reader
+		l = [row for row in reader]
+	return l
+
 
 def csv_terget(path):
 	with open(path,encoding="utf-8_sig") as f:

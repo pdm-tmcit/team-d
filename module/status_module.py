@@ -110,7 +110,7 @@ class Connection():
         con.close()
 
 def save(rool, key, value):
-    json_str = json.dumps(value,ensure_ascii=False)
+    json_str = json.dumps(value)
     db = Connection("data.sqlite3")
     db.sqlCommit("insert or replace into status (rool,key,value) values (?,?,?)",[rool,key,json_str])
 

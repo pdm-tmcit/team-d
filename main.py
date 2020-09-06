@@ -17,7 +17,6 @@ if __name__ == "__main__":
         exit
 
     status.init()
-
     tokenize_csv = tokens.token(csv)
 
     names = name.name_setlist(csv)

@@ -1,27 +1,40 @@
+import module.name_module as name
+import module.status_module as status
+
 import re
+import spacy
 
 dict = ["人狼","占い師","村人","狂人","狩人","霊能力者","霊能者"]
 
 def CO_check(token):
+  COTokenList = []
+
   for part in token:
     if part[0] == 'プロローグ':
       continue
     if part[2] != '':
       if '■' in part[3]:
         continue
-      m = re.match(r'【.*】',part[3])
-      if m != None:
-        n = re.match(r'【.*[^非].*】',part[3])
-        if n !=None:
-          l = re.findall(r'【.*】',part[3])
-          #print(l)
+      if '【' in part[3]:
+        m = part[3].split('【')
+        n = []
+        for mpart in m:
+          if '】' in mpart:
+            n.append(mpart.split('】')[0].lower())
+        for o in n:
           for role in dict:
-            for match_part in l:
-              if (role in match_part)==True:
-                print(role)
-          #print(part[3])
-      """
-      if '【' in part[3] and '】' in part[3]:
-        if 'CO' in part[3].upper():
-          print(part)
-      """
+            if role in o:
+              if not 'ない' in o and not 'ません' in o:
+                list = [part[1], part[2], o, role]
+                COTokenList.append(list)
+  
+  nlp = spacy.load('ja_ginza')
+  for COToken in COTokenList:
+    reslist = name.token_part(COToken[2], nlp)
+    if len(reslist) < 10:
+      #print(COToken)
+      if COToken[1] == '狂人' and COToken[3] != '狂人':
+        status.save(COToken[1], '偽る役職', COToken[3])
+        status.save(COToken[1], '自身が偽COしているか', True)
+      elif COToken[1] == COToken[3]:
+        status.save(COToken[1], '自身がCOしているか', True)

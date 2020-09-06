@@ -1,13 +1,5 @@
 # -*- coding: utf-8 -*-
 import spacy
-import csv
-
-"""
-test= [
-  ["プロローグ","楽天家ゲルト","村人","人狼なんているわけないじゃん。"],
-  ["プロローグ","少女リーザ","村人","こ、こんにちは！村の立て看板は読んできたよ（ルール確認）"],
-  ["プロローグ","パン屋オットー","人狼","今はリーザ、ヤコブ、ヴァルターがいるねぇ。"]]
-"""
 
 def token_part(test,nlp):
   doc = nlp(test)
@@ -62,12 +54,6 @@ def nickname_setlist(token):
           if ex_info["pos_"] == "PROPN":
             nameset.add(ex_info["text"])
   return list(nameset)
-
-def csv_read(a):
-  with open(a, encoding="utf-8") as f:
-    reader = csv.reader(f)
-    l = [row for row in reader]
-  return l
 
 def name_similar_nickname(names, nicknames):
   nlp = spacy.load('ja_ginza')

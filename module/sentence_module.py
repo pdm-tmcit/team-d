@@ -35,7 +35,7 @@ def sentence_moddule(role_name):
 			status.save(role_name,'霊能を既に言ったか',True)
 			uid = status.load(role_name,'スキル対象')
 			ans = status.load(role_name,'スキル結果')
-			return ('%sは%sでした。' %(uid_dict[uid],ans_dict[ans]))
+			return ('%sは%sでした。' %(uid,ans_dict[ans]))
 
 		else:
 			return ('今日もいい天気。明日は%sかな' %(otenki()))
@@ -66,7 +66,7 @@ def sentence_moddule(role_name):
 				status.save(role_name,'偽霊能を既に言ったか',True)
 				uid = status.load(role_name,'偽スキル対象')
 				ans = status.load(role_name,'偽スキル結果')
-				return ('%sは%sでした。' %(uid_dict[uid],ans_dict[ans]))
+				return ('%sは%sでした。' %(uid,ans_dict[ans]))
 
 		else:
 			return ('今日もいい天気。明日は%sかな' %(otenki()))

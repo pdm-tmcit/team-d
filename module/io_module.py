@@ -15,3 +15,17 @@ def csv_terget(path):
 				return row[2]
 		return
 		
+def csv_write(path,message):
+	with open(path,encoding="utf-8_sig") as in_file:
+		with open(path+".out.csv","w") as out_file:
+
+			reader = csv.reader(in_file)
+			writer = csv.writer(out_file)
+
+			for row in reader:
+				if row[3] == "":
+					writer.writerow([row[0],row[1],row[2],message])
+					return
+				else:
+					writer.writerow(row)
+			return

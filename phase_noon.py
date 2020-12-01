@@ -11,8 +11,11 @@ def main():
 
 
 def some_module(json_data):
-    print(json_data)
+    print(json_data['day'], "日目")
 
-    # kokoni書いてちょ
+    for i in json_data['character']:
+        print(i['name']['ja'], " : ", i['status'])
+
+
 if __name__ == "__main__":
     main()

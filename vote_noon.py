@@ -18,7 +18,6 @@ character_list = []
 
 
 def main():
-    # URLは自分の担当箇所に変更
     url = "https://werewolf.world/village/example/0.3/client2server/noonVote.jsonld"
     response = requests.get(url)
     json_data = response.json()
@@ -36,17 +35,12 @@ def get_phase_noon():
             my_character = character
         character_list.append(character)
 
-    # print(my_character)
-    # print(character_list)
-
 
 def vote(json_data, id):
     """
     jsonと投票する人のidを受け取ってvoteのjsonを生成する
     """
-    #print(json_data['day'], "日目")
 
-    # TODO: phase_noonから生存キャラクターのid, キャラ名, imageを受け取って持ってくるようにする。
     for target in character_list:
         if target['id'] == id:
             json_data['character']['id'] = target['id']
@@ -58,6 +52,5 @@ def vote(json_data, id):
     return json_data
 
 
-    # kokoni書いてちょ
 if __name__ == "__main__":
     main()

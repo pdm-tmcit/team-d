@@ -15,6 +15,7 @@ class Character:
 
 
 my_character = None
+character_list = []
 
 
 def main():
@@ -23,26 +24,23 @@ def main():
     response = requests.get(url)
     json_data = response.json()
     get_phase_noon()
-    print(vote(json_data, int(args[1]), get_phase_noon()))
+    print(vote(json_data, int(args[1])))
 
 
-# 午後のフェーズのjsonを取得してキャラクターのリストを返す
+# 午後のフェーズのjsonを取得してキャラクターのリストに入れる
 def get_phase_noon():
     url = "https://werewolf.world/village/example/0.3/server2client/noon.jsonld"
     response = requests.get(url)
     json_data = response.json()
-    character_list = []
 
     for character in json_data['character']:
         if character['isMine']:
             my_character = character
         character_list.append(character)
 
-    return character_list
 
-
-# jsonと投票する人のid、キャラクターのリストを受け取ってvoteのjsonを生成する
-def vote(json_data, id, character_list):
+# jsonと投票する人のidを受け取ってvoteのjsonを生成する
+def vote(json_data, id):
     for target in character_list:
         if target['id'] == id:
             json_data['character']['id'] = target['id']
@@ -50,7 +48,7 @@ def vote(json_data, id, character_list):
             json_data['character']['name']['ja'] = target['name']['ja']
             json_data['character']['image'] = target['image']
 
-    return json_data
+    return json.dumps(json_data)
 
 
 if __name__ == "__main__":
